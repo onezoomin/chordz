@@ -1,27 +1,39 @@
-import WarningIcon from '@mui/icons-material/Warning'
-import { IconButton, Link, Tooltip } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
+import { useDrag } from '@use-gesture/react'
 import { useLiveQuery } from 'dexie-react-hooks'
-import { Image } from 'mui-image'
 import { h } from 'preact'
-import Footer from './Components/Footer'
 import { FlexRow } from './Components/Minis'
-// import InitializingServiceWorker from './Components/ServiceWorker'
-import ActiveTask from './Components/Tasks/ActiveTask'
-import AddTasks from './Components/Tasks/AddTasks'
-import CompletedTask from './Components/Tasks/CompletedTask'
 import { ActiveTasksQuery, CompletedTasksQuery } from './Data/data'
 import { useDarkMode } from './Utils/react-utils'
+
 // eslint-disable-next-line @typescript-eslint/promise-function-async
 // const App = lazy(() => import('./app'))
 // <Suspense fallback={<div>Loading...</div>}></Suspense>
-
+const DragDiv = ({ id }) => {
+  const bind = useDrag(({ direction, touches, last, swipe: [swipeX, swipeY], distance: [mx, my] }) => {
+    console.log(id, direction, touches, mx, my)
+    const dir = swipeX === -1
+      ? 'l'
+      : swipeX === 1
+        ? 'r'
+        : swipeY === -1
+          ? 'u'
+          : swipeY === 1 ? 'd' : null
+    last && console.log('last', id, dir)
+  })
+  return (
+    <div {...{ id }} {...bind()} className="w-64 h-64 border border-gray-500 touch-none" style={{ touchAction: 'none' }}>
+      {id}
+    </div>
+  )
+}
 export const App = () => {
   // InitializingServiceWorker()
   const ActiveTasks = useLiveQuery(ActiveTasksQuery) ?? []
   const CompletedTasks = useLiveQuery(CompletedTasksQuery) ?? []
 
   const theme = useDarkMode()
+
   // useEffect(() => {
   //   localStorage.setItem('ActiveTasks', JSON.stringify(ActiveTasks))
   // }, [ActiveTasks])
@@ -35,29 +47,11 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <FlexRow className="p-4">
-        <Link href='https://github.com/st-ax'>
-          <Image width={100} src="https://avatars.githubusercontent.com/u/66159016?s=200&v=4" />
-        </Link>
+      <FlexRow className="p-4 touch-none">
+        <DragDiv id="one" />
+        <DragDiv id="two" />
       </FlexRow>
 
-      <div className="container mx-auto lg:w-1/2">
-        <h1 className="text-5xl">Todo App</h1>
-        <AddTasks />
-        <ActiveTask />
-        <hr />
-        <CompletedTask />
-        <Footer />
-      </div>
-
-      <FlexRow className="p-4">
-        <Image width={100} src="https://test.broken.url" showLoading
-          errorIcon={
-            <Tooltip arrow title="Broken Image" placement="right-start">
-              <IconButton aria-label="broken"><WarningIcon /></IconButton>
-            </Tooltip>}
-        />
-      </FlexRow>
     </ThemeProvider>
   )
 }

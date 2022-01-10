@@ -13,6 +13,7 @@ specifiers:
   '@types/node': ^16.11.9
   '@typescript-eslint/eslint-plugin': ^5.4.0
   '@typescript-eslint/parser': ^5.4.0
+  '@use-gesture/react': ^10.2.4
   cross-env: ^7.0.3
   dexie: ^3.2.0
   dexie-observable: ^3.0.0-beta.11
@@ -41,6 +42,7 @@ dependencies:
   '@emotion/styled': 11.6.0_@emotion+react@11.6.0
   '@mui/icons-material': 5.1.1_@mui+material@5.1.1
   '@mui/material': 5.1.1_787af0472c2f4561733eb60105f9a1b5
+  '@use-gesture/react': 10.2.4
   dexie: 3.2.0
   dexie-observable: 3.0.0-beta.11_dexie@3.2.0
   dexie-react-hooks: 1.0.7_dexie@3.2.0
@@ -1948,6 +1950,18 @@ packages:
       '@typescript-eslint/types': 5.4.0
       eslint-visitor-keys: 3.1.0
     dev: true
+
+  /@use-gesture/core/10.2.4:
+    resolution: {integrity: sha512-fk1LjCBj43BKb8NE05qkdtPOR0ngA7PwgvEqfFap/h+s7QHi+JTv4/mtDQ4wI9zzem+Ry5EKrHS/cVdBehI4wA==}
+    dev: false
+
+  /@use-gesture/react/10.2.4:
+    resolution: {integrity: sha512-CbqyRj+qNbRBOGmS8OWtaOa29fxEr7bKTYHvPuMQ1wsgQDh2/DqQxbp7cFxAg6WZ8oZjppDj/EkWnw22WpIIWQ==}
+    peerDependencies:
+      react: '>= 16.8.0'
+    dependencies:
+      '@use-gesture/core': 10.2.4
+    dev: false
 
   /@windicss/config/1.5.1:
     resolution: {integrity: sha512-nWNgvvJj9RcYhLcqwju/Z8FfaHRjyWHDYS3IgY7lWUM+vWTLFuKqhavKfC1589kdYjiO9JeX07Vg+YzfcxP0Yw==}
